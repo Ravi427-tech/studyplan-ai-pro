@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  experimental: {
+    allowedDevOrigins: ['10.124.236.55'],
+  },
+  serverExternalPackages: ['bcryptjs'],
 };
 
 export default nextConfig;

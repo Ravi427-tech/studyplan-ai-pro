@@ -30,8 +30,19 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# IDEs
+.idea/
+.vscode/
+.next/
+
 # env files (can opt-in for committing if needed)
 .env*
+
+# databases
+*.db
+*.db-journal
+*.sqlite
+dev.db
 
 # vercel
 .vercel
@@ -39,3 +50,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/src/generated/prisma
+
+# temporary exclusion for long paths
+/public/materials/

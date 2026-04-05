@@ -1,0 +1,118 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String          @id @default(cuid())
+  name         String
+  email        String          @unique
+  school       String          @default("")
+  section      String          @default("10")
+  stream       String          @default("pcmb")
+  dept         String          @default("cse")
+  passwordHash String
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  studyLogs    StudyLog[]
+  exams        Exam[]
+  flashcards   FlashCard[]
+  chapters     ChapterStatus[]
+  timetable    Timetable[]
+  timerSessions TimerSession[]
+  grades       Grade[]
+  goals        Goal[]
+}
+
+model StudyLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date      String
+  subject   String
+  hours     Float
+  createdAt DateTime @default(now())
+}
+
+model Exam {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name      String
+  subject   String
+  date      String
+  createdAt DateTime @default(now())
+}
+
+model FlashCard {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  section   String
+  question  String
+  answer    String
+  createdAt DateTime @default(now())
+}
+
+model ChapterStatus {
+  id            String @id @default(cuid())
+  userId        String
+  user          User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subject       String
+  chapterNumber Int
+  status        String @default("NOT_STARTED")
+
+  @@unique([userId, subject, chapterNumber])
+}
+
+model Timetable {
+  id       String @id @default(cuid())
+  userId   String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dayIndex Int
+  slotIndex Int
+  subject  String @default("")
+
+  @@unique([userId, dayIndex, slotIndex])
+}
+
+model TimerSession {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subject         String
+  durationMinutes Float
+  mode            String   @default("WORK")
+  createdAt       DateTime @default(now())
+}
+
+model Grade {
+  id           String @id @default(cuid())
+  userId       String
+  user         User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subject      String
+  currentGrade String
+  targetGrade  String
+
+  @@unique([userId, subject])
+}
+
+model Goal {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  text      String
+  completed Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+model NewTableName {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  // Add other columns here, e.g.:
+  // title   String
+  // description String?
+}
