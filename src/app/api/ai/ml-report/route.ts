@@ -44,7 +44,7 @@ Respond ONLY with the JSON object. Do not include any markdown formatting wrappe
       },
       body: JSON.stringify({
         // Using openai/gpt-oss-120b for state-of-the-art reasoning and prediction accuracy
-        model: 'openai/gpt-oss-120b',
+        model: 'llama-3.1-8b-instant',
         messages: [{ role: 'system', content: prompt }],
         temperature: 0.1 // Extremely low temperature for highest precision/accuracy
       })

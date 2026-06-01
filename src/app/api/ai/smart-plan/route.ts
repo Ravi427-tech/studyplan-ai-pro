@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'openai/gpt-oss-120b',
+        model: 'llama-3.1-8b-instant',
         max_tokens: 1500,
         temperature: 0.6,
         messages: [

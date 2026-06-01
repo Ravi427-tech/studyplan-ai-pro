@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'openai/gpt-oss-120b',
+        model: 'llama-3.1-8b-instant',
         max_tokens: 500,
         messages: [
           { role: 'system', content: `You are a helpful, friendly study tutor for Indian students studying ${subject}. Keep answers concise (2-4 sentences), clear, and educational. ${langRule} If the student asks about a concept, explain it simply. If they ask a problem, solve it step by step briefly. Be encouraging!` },

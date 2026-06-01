@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -108,11 +109,4 @@ model Goal {
   text      String
   completed Boolean  @default(false)
   createdAt DateTime @default(now())
-}
-model NewTableName {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  // Add other columns here, e.g.:
-  // title   String
-  // description String?
 }
