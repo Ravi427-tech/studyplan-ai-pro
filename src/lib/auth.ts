@@ -45,6 +45,16 @@ export const authOptions: NextAuthOptions = {
               prisma.exam.create({ data: { userId: user.id, name: 'Board Exam', subject: 'All', date: new Date(now + 30 * 86400000).toISOString().split('T')[0] } }),
               prisma.exam.create({ data: { userId: user.id, name: 'Unit Test', subject: 'Mathematics', date: new Date(now + 10 * 86400000).toISOString().split('T')[0] } })
             ]);
+          } else {
+            // Update the user's section selection on login
+            user = await prisma.user.update({
+              where: { id: user.id },
+              data: {
+                section: credentials.section || user.section,
+                stream: credentials.stream || user.stream,
+                dept: credentials.dept || user.dept,
+              },
+            });
           }
 
           return {
